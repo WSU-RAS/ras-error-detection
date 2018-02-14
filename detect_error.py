@@ -8,15 +8,44 @@ def check_sequence(graph, seq=[], task_count=0, task_num=-1):
     if seq == []:
         return 0, False, graph['label'], False, graph['label']
 
+    # Y intersection, pick a branch
+    if 'Y' in graph:
+        long_path = None
+        for branch in graph['Y']:
+            if seq[0] in branch:
+                path = _check_sequence(branch, seq, task_count, -1, label=branch['label'])
+                if long_path is None:
+                    long_path = path
+                    continue
+                if path[0] > long_path[0]:
+                    long_path = path
+                if path[1] and not long_path[1]:
+                    long_path = path
+        return long_path
+
     if seq[0] not in graph:
         return 0, False, graph['label'], False, graph['label']
 
     if len(seq) == 1:
         return 0, True, graph['label'], False, graph['next']
 
-    return _check_sequence(graph[seq[0]], seq[1:], task_count+1, task_num-1, label=graph['label'])
+    return _check_sequence(graph[seq[0]], seq, task_count+1, task_num-1, label=graph['label'])
 
 def _check_sequence(graph, seq=[], task_count=0, task_num=-1, label=None):
+    # Y intersection, pick a branch
+    if 'Y' in graph:
+        long_path = None
+        for branch in graph['Y']:
+            if seq[0] in branch:
+                path = _check_sequence(branch, seq, task_count, task_num, label=branch['label'])
+                if long_path is None:
+                    long_path = path
+                    continue
+                if path[0] > long_path[0]:
+                    long_path = path
+                if path[1] and not long_path[1]:
+                    long_path = path
+        return long_path
 
     if seq[0] not in graph:
         return task_count+1, False, graph['label'], False, graph['label']
@@ -51,3 +80,8 @@ if __name__ == '__main__':
         WalkDog.taskStart,
         seq=['U', 'U', 'U'],
         task_num=WalkDog.numTasks))
+
+    print(check_sequence(
+        TakeMedication.taskStart,
+        seq=['C','C','S','F'],
+        task_num=TakeMedication.numTasks))

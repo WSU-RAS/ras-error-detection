@@ -24,39 +24,39 @@ class WaterPlants(object):
     }
     numTasks = 6
     task5 = {
-        'P3': ['P3', 'W', 'G', 'S'],
-        'G': ['P3', 'W', 'G', 'S'],
-        'S': ['P3', 'W', 'G', 'S'],
-        'W': ['W'],
+        'P3': None,
+        'G': None,
+        'S': None,
+        'W': None,
         'Done': 'W',
         'label': subtaskName[5],
         'next': subtaskName[6]
     }
     task4 = {
-        'P2': ['P2', 'W', 'P3'],
-        'W': ['P2', 'W', 'P3'],
+        'P2': None,
+        'W': None,
         'P3': task5,
         'label': subtaskName[4],
         'next': subtaskName[5]
     }
     task3 = {
-        'P1': ['P1', 'W', 'P2'],
-        'W': ['P1', 'W', 'P2'],
+        'P1': None,
+        'W': None,
         'P2': task4,
         'label': subtaskName[3],
         'next': subtaskName[4]
     }
     task2 = {
-        'S': ['S', 'W', 'G', 'P1'],
-        'W': ['S', 'W', 'G', 'P1'],
-        'G': ['S', 'W', 'G', 'P1'],
+        'S': None,
+        'W': None,
+        'G': None,
         'P1': task3,
         'label': subtaskName[2],
         'next': subtaskName[3]
     }
     task1 = {
-        'W': ['W', 'S', 'G'],
-        'G': ['W', 'S', 'G'],
+        'W': None,
+        'G': None,
         'S': task2,
         'label': subtaskName[1],
         'next': subtaskName[2]
@@ -78,32 +78,32 @@ class WalkDog(object):
     }
     numTasks = 5
     task4 = {
-        'U': ['U', 'L', 'K', 'D', 'DR'],
-        'L': ['U', 'L', 'K', 'D', 'DR'],
-        'K': ['U', 'L', 'K', 'D', 'DR'],
-        'D': ['U', 'L', 'K', 'D', 'DR'],
-        'DR': ['Done'],
+        'U': None,
+        'L': None,
+        'K': None,
+        'D': None,
+        'DR': None,
         'Done': 'DR',
         'label': subtaskName[4],
         'next': subtaskName[5]
     }
     task3 = {
-        'U': ['U', 'L', 'K', 'D'],
-        'L': ['U', 'L', 'K', 'D'],
-        'K': ['U', 'L', 'K', 'D'],
+        'U': None,
+        'L': None,
+        'K': None,
         'D': task4,
         'label': subtaskName[3],
         'next': subtaskName[4]
     }
     task2 = {
-        'U': ['U', 'L', 'K'],
-        'L': ['U', 'L', 'K'],
+        'U': None,
+        'L': None,
         'K': task3,
         'label': subtaskName[2],
         'next': subtaskName[3]
     }
     task1 = {
-        'U': ['U', 'L'],
+        'U': None,
         'L': task2,
         'label': subtaskName[1],
         'next': subtaskName[2]
@@ -130,40 +130,40 @@ class TakeMedication(object):
     }
     numTasks = 10
     task9 = {
-        'F': ['F', 'M', 'C', 'S', 'G'],
-        'C': ['F', 'M', 'C', 'S', 'G'],
-        'S': ['F', 'M', 'C', 'S', 'G'],
-        'G': ['F', 'M', 'C', 'S', 'G'],
-        'M': ['Done'],
+        'F': None,
+        'C': None,
+        'S': None,
+        'G': None,
+        'M': None,
         'Done': 'M',
         'label': subtaskName[9],
         'next': subtaskName[10]
     }
     task8 = {
-        'F': ['F', 'M', 'C', 'CH', 'S', 'G'],
-        'M': ['F', 'M', 'C', 'CH', 'S', 'G'],
-        'C': ['F', 'M', 'C', 'CH', 'S', 'G'],
-        'CH': ['F', 'M', 'C', 'CH', 'S', 'G'],
-        'S': ['F', 'M', 'C', 'CH', 'S', 'G'],
+        'F': None,
+        'M': None,
+        'C': None,
+        'CH': None,
+        'S': None,
         'G': task9,
         'label': subtaskName[8],
         'next': subtaskName[9]
     }
     task7 = {
-        'M': ['M', 'C'],
+        'M': None,
         'C': task8,
         'label': subtaskName[7],
         'next': subtaskName[8]
     }
     task6 = {
-        'F': ['F', 'M'],
+        'F': None,
         'M': task7,
         'label': subtaskName[6],
         'next': subtaskName[7]
     }
     task5 = {
-        'M': ['M', 'CH', 'F'],
-        'CH': ['M', 'CH', 'F'],
+        'M': None,
+        'CH': None,
         'F': task6,
         'label': subtaskName[5],
         'next': subtaskName[6]
@@ -175,51 +175,73 @@ class TakeMedication(object):
         'next': subtaskName[5]
     }
     task3 = {
-        'F': ['F', 'C', 'S', 'M'],
-        'C': ['F', 'C', 'S', 'M'],
-        'S': ['F', 'C', 'S', 'M'],
+        'F': None,
+        'C': None,
+        'S': None,
         'M': task4,
         'label': subtaskName[3],
         'next': subtaskName[4]
     }
     task2 = {
-        'F': ['F', 'C', 'S'],
-        'C': ['F', 'C', 'S'],
+        'F': None,
+        'C': None,
         'S': task3,
         'label': subtaskName[2],
         'next': subtaskName[3]
     }
-    task1 = {
-        'F': ['F', 'C'],
+    ''' cup->sink->food '''
+    task2_1 = {
+        'C': None,
+        'S': None,
+        'F': task3,
+        'label': subtaskName[0],
+        'next': subtaskName[3]
+    }
+    ''' cup->sink '''
+    task1_2_2 = {
+        'C': None,
+        'S': task2_1,
+        'label': subtaskName[2],
+        'next': subtaskName[0]
+    }
+    ''' cup->food '''
+    task1_2_1 = {
+        'C': None,
+        'F': task2,
+        'label': subtaskName[0],
+        'next': subtaskName[2]
+    }
+    ''' cup->Y '''
+    task1_2 = {
+        'Y': [task1_2_1, task1_2_2]
+        # 'C': None,
+        # 'F': task2,
+        # 'label': subtaskName[0],
+        # 'next': subtaskName[2]
+    }
+    ''' food->cup '''
+    task1_1 = {
+        'F': None,
         'C': task2,
         'label': subtaskName[1],
         'next': subtaskName[2]
     }
-    taskStart = {
-        'F': task1,
+    ''' starts with retrieving cup '''
+    taskStart_2 = {
+        'C': task1_2,
+        'label': subtaskName[1],
+        'next': subtaskName[0]
+    }
+    ''' starts with retrieving food '''
+    taskStart_1 = {
+        'F': task1_1,
         'label': subtaskName[0],
         'next': subtaskName[1]
     }
-    # task1_2 = {
-    #     'C': ['F', 'C'],
-    #     'F': task2,
-    #     'label': subtaskName[0],
-    #     'next': subtaskName[2]
-    # }
-    # task1_1 = {
-    #     'F': ['F', 'C'],
-    #     'C': task2,
-    #     'label': subtaskName[1],
-    #     'next': subtaskName[2]
-    # }
-    # taskStart = {
-    #     'F': task1_1,
-    #     'C': task1_2,
-    #     'label': {'F': subtaskName[0], 'C': subtaskName[1]},
-    #     'next': {'F': subtaskName[1], 'C': subtaskName[0]},
-    #     'default_label': subtaskName[0]
-    #     'default_next': subtaskName[1]
-    # }
+    ''' start->Y '''
+    taskStart = {
+        'Y': [taskStart_1, taskStart_2], # Y intersection
+    }
 
 
 if __name__ == '__main__':
