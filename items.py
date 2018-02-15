@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+# Decode item numbers are based on Estimote Pairings and Script 2.0
+# Experiment Date: 2018-02-13
+
+
 class Items(object):
 
     encode = {
@@ -26,8 +30,8 @@ class Items(object):
         73: 'leash_1',
         74: 'leash_2',
         30: 'keys_1',
-        82: 'keys_2',
-        95: 'dog_1',
+        123: 'keys_2',
+        122: 'dog_1',
         100: 'dog_2',
         71: 'door_1',
         23: 'door_2',
@@ -44,7 +48,7 @@ class Items(object):
         78: 'chair_2',
 
         22: 'water_can_1',
-        92: 'water_can_2',
+        124: 'water_can_2',
         24: 'side_table_plant_1',
         86: 'side_table_plant_2',
         87: 'windowsill_plant_1',
@@ -52,5 +56,5 @@ class Items(object):
         83: 'coffee_table_plant_1',
         84: 'coffee_table_plant_2',
         93: 'sink_tap_1',
-        94: 'sink_tap_2',
+        121: 'sink_tap_2',
     }

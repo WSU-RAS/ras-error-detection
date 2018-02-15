@@ -19,16 +19,22 @@ class WaterPlants(object):
         2: 'Water Windowsill plant',
         3: 'Water Coffee table plant',
         4: 'Water Side table plant',
-        5: 'Return Water can',
-        6: 'Completed'
+        5: 'Rinse Water can',
+        6: 'Return Water can',
+        7: 'Completed'
     }
-    numTasks = 6
-    task5 = {
-        'P3': None,
-        'G': None,
+    numTasks = 7
+    task6 = {
         'S': None,
         'W': None,
         'Done': 'W',
+        'label': subtaskName[6],
+        'next': subtaskName[7]
+    }
+    task5 = {
+        'P3': None,
+        'W': None,
+        'S': task6,
         'label': subtaskName[5],
         'next': subtaskName[6]
     }
@@ -49,14 +55,12 @@ class WaterPlants(object):
     task2 = {
         'S': None,
         'W': None,
-        'G': None,
         'P1': task3,
         'label': subtaskName[2],
         'next': subtaskName[3]
     }
     task1 = {
         'W': None,
-        'G': None,
         'S': task2,
         'label': subtaskName[1],
         'next': subtaskName[2]
@@ -124,18 +128,35 @@ class TakeMedication(object):
         5: 'Eat Food',
         6: 'Take Medication',
         7: 'Drink Water',
-        8: 'Throw Garbage',
+        8: 'Stand Up',
         9: 'Return Medication',
-        10: 'Completed'
+        10: 'Rinse Cup',
+        11: 'Throw Garbage',
+        12: 'Completed'
     }
-    numTasks = 10
-    task9 = {
+    numTasks = 12
+    task11 = {
+        'S': None,
         'F': None,
         'C': None,
-        'S': None,
         'G': None,
+        'Done': 'G',
+        'label': subtaskName[11],
+        'next': subtaskName[12]
+    }
+    task10 = {
         'M': None,
-        'Done': 'M',
+        'F': None,
+        'C': None,
+        'S': task11,
+        'label': subtaskName[10],
+        'next': subtaskName[11]
+    }
+    task9 = {
+        'CH': None,
+        'F': None,
+        'C': None,
+        'M': task10,
         'label': subtaskName[9],
         'next': subtaskName[10]
     }
@@ -143,13 +164,12 @@ class TakeMedication(object):
         'F': None,
         'M': None,
         'C': None,
-        'CH': None,
-        'S': None,
-        'G': task9,
+        'CH': task9,
         'label': subtaskName[8],
         'next': subtaskName[9]
     }
     task7 = {
+        'F': None,
         'M': None,
         'C': task8,
         'label': subtaskName[7],
@@ -157,19 +177,22 @@ class TakeMedication(object):
     }
     task6 = {
         'F': None,
+        'C': None,
         'M': task7,
         'label': subtaskName[6],
         'next': subtaskName[7]
     }
     task5 = {
-        'M': None,
+        'C': None,
         'CH': None,
         'F': task6,
         'label': subtaskName[5],
         'next': subtaskName[6]
     }
     task4 = {
-        'M': ['M', 'CH'],
+        'M': None,
+        'C': None,
+        'F': None,
         'CH': task5,
         'label': subtaskName[4],
         'next': subtaskName[5]
@@ -214,10 +237,6 @@ class TakeMedication(object):
     ''' cup->Y '''
     task1_2 = {
         'Y': [task1_2_1, task1_2_2]
-        # 'C': None,
-        # 'F': task2,
-        # 'label': subtaskName[0],
-        # 'next': subtaskName[2]
     }
     ''' food->cup '''
     task1_1 = {
@@ -240,7 +259,7 @@ class TakeMedication(object):
     }
     ''' start->Y '''
     taskStart = {
-        'Y': [taskStart_1, taskStart_2], # Y intersection
+        'Y': [taskStart_1, taskStart_2]
     }
 
 

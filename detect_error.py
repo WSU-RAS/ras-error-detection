@@ -13,7 +13,7 @@ def check_sequence(graph, seq=[], task_count=0, task_num=-1):
         long_path = None
         for branch in graph['Y']:
             if seq[0] in branch:
-                path = _check_sequence(branch, seq, task_count, -1, label=branch['label'])
+                path = _check_sequence(branch, seq, task_count, task_num-1, label=branch['label'])
                 if long_path is None:
                     long_path = path
                     continue
@@ -38,6 +38,8 @@ def _check_sequence(graph, seq=[], task_count=0, task_num=-1, label=None):
         for branch in graph['Y']:
             if seq[0] in branch:
                 path = _check_sequence(branch, seq, task_count, task_num, label=branch['label'])
+                if path[1] and path[3]: # Completed
+                    return path
                 if long_path is None:
                     long_path = path
                     continue
@@ -83,5 +85,5 @@ if __name__ == '__main__':
 
     print(check_sequence(
         TakeMedication.taskStart,
-        seq=['C','C','S','F'],
+        seq=['F', 'F', 'C', 'C', 'F', 'F', 'C', 'F', 'S', 'S', 'F', 'C', 'C', 'C', 'F', 'F', 'C', 'C', 'M', 'CH', 'CH', 'C', 'F', 'F', 'F', 'M', 'M', 'C', 'C', 'C', 'CH', 'C', 'CH', 'M', 'F', 'C', 'C', 'M', 'F', 'M', 'F', 'M', 'C', 'F', 'F', 'S', 'C', 'C', 'F', 'M', 'M', 'F', 'C', 'M', 'C', 'C', 'G', 'M', 'G', 'M'],
         task_num=TakeMedication.numTasks))

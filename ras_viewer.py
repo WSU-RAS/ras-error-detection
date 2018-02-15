@@ -63,7 +63,7 @@ class Board(QFrame):
         '''initiates board'''
 
         self.sequence = defaultdict(list)
-        with open('estimotes_full_labeled.data', newline='') as csvfile:
+        with open('data/2018-02-13/estimotes_full_labeled.data', newline='') as csvfile:
             data = csv.reader(csvfile, delimiter=' ', quotechar='|')
             self.startDatetime = None
             for row in data:
@@ -275,6 +275,8 @@ class Board(QFrame):
                     # Task has ended
                     elif isStopTask:
                         isStopTask = False
+                        print("{}: {}".format(self.taskName, self.textboxSequence.text()))
+                        print("prediction: {}\n".format(errorStatus))
                         self.outputFile.write("{}: {}\n".format(self.taskName, self.textboxSequence.text()))
                         self.outputFile.write("prediction: {}\n\n".format(errorStatus))
                         subtaskName =  errorStatus[4]
