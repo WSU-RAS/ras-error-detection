@@ -3,15 +3,21 @@
 import sys
 import datetime
 import csv
+import coloredlogs, logging
 
 from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication, QLabel, QLineEdit
 from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal, QRect
 from PyQt5.QtGui import QPainter, QColor, QPixmap, QPen
 
 from collections import defaultdict
-from items import Items
-from dag_graphs import WaterPlants, WalkDog, TakeMedication
-from detect_error import check_sequence
+from ras_error_detector.lib import Items
+from ras_error_detector.lib import WaterPlants, WalkDog, TakeMedication
+from ras_error_detector import check_sequence
+
+logger = logging.getLogger("ras")
+coloredlogs.install(
+    level='DEBUG',
+    fmt='%(asctime)s,%(msecs)03d %(name)s %(levelname)s %(message)s')
 
 class RAS(QMainWindow):
 
@@ -63,10 +69,14 @@ class Board(QFrame):
         '''initiates board'''
 
         self.sequence = defaultdict(list)
-        with open('data/2018-02-13/estimotes_full_labeled.data', newline='') as csvfile:
+        data_file = 'data/2018-02-13/estimotes_full_labeled.data'
+        logger.info('Loading data from {}'.format(data_file))
+        with open(data_file, newline='') as csvfile:
             data = csv.reader(csvfile, delimiter=' ', quotechar='|')
             self.startDatetime = None
+            total_events = 0
             for row in data:
+                total_events += 1
                 dt = datetime.datetime.strptime(row[0] + ' ' + row[1], "%Y-%m-%d %H:%M:%S")
                 if self.startDatetime is None:
                     self.startDatetime = dt
@@ -76,7 +86,7 @@ class Board(QFrame):
                     self.sequence[int(time_diff)].append((row[2], status, row[4], True if row[5] == 'start' else False))
                 else:
                     self.sequence[int(time_diff)].append((row[2], status))
-
+        logger.info('Loaded {} estimote events'.format(total_events))
         self.outputFile = open('error_prediction.txt', 'w')
         self.timer = QBasicTimer()
         self.isWaitingAfterLine = False
@@ -275,8 +285,8 @@ class Board(QFrame):
                     # Task has ended
                     elif isStopTask:
                         isStopTask = False
-                        print("{}: {}".format(self.taskName, self.textboxSequence.text()))
-                        print("prediction: {}\n".format(errorStatus))
+                        logger.info("{}: {}".format(self.taskName, self.textboxSequence.text()))
+                        logger.info("prediction: {}".format(errorStatus))
                         self.outputFile.write("{}: {}\n".format(self.taskName, self.textboxSequence.text()))
                         self.outputFile.write("prediction: {}\n\n".format(errorStatus))
                         subtaskName =  errorStatus[4]

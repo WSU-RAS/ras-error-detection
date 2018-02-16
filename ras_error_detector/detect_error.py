@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from dag_graphs import WaterPlants, WalkDog, TakeMedication
-from items import Items
+from .lib import WaterPlants, WalkDog, TakeMedication
+from .lib import Items
 
 
 def check_sequence(graph, seq=[], task_count=0, task_num=-1):
@@ -50,7 +50,7 @@ def _check_sequence(graph, seq=[], task_count=0, task_num=-1, label=None):
         return long_path
 
     if seq[0] not in graph:
-        return task_count+1, False, graph['label'], False, graph['label']
+        return task_count, False, graph['label'], False, graph['label']
 
     if task_count == task_num and seq[0] == graph['Done']:
         return task_count, True, graph['label'], True, graph['next']
@@ -85,5 +85,10 @@ if __name__ == '__main__':
 
     print(check_sequence(
         TakeMedication.taskStart,
-        seq=['F', 'F', 'C', 'C', 'F', 'F', 'C', 'F', 'S', 'S', 'F', 'C', 'C', 'C', 'F', 'F', 'C', 'C', 'M', 'CH', 'CH', 'C', 'F', 'F', 'F', 'M', 'M', 'C', 'C', 'C', 'CH', 'C', 'CH', 'M', 'F', 'C', 'C', 'M', 'F', 'M', 'F', 'M', 'C', 'F', 'F', 'S', 'C', 'C', 'F', 'M', 'M', 'F', 'C', 'M', 'C', 'C', 'G', 'M', 'G', 'M'],
+        seq=['F', 'F', 'C', 'C', 'F', 'F', 'C', 'F', 'S', 'S',
+             'F', 'C', 'C', 'C', 'F', 'F', 'C', 'C', 'M', 'CH',
+             'CH', 'C', 'F', 'F', 'F', 'M', 'M', 'C', 'C', 'C',
+             'CH', 'C', 'CH', 'M', 'F', 'C', 'C', 'M', 'F', 'M',
+             'F', 'M', 'C', 'F', 'F', 'S', 'C', 'C', 'F', 'M',
+             'M', 'F', 'C', 'M', 'C', 'C', 'G', 'M', 'G', 'M'],
         task_num=TakeMedication.numTasks))
